@@ -1,0 +1,7 @@
+<div class="container-fluid pt-2">
+    <div class="row" *ngFor="let row of chunks; let idxRow = index">
+        <div class="col col-lg-3 col-sm-12 col-md-6 col-12 pb-2" *ngFor="let pokemon of row; let idxCol = index">
+            <app-pokemon [pokemon]="pokemon" [pokeNumber]="(idxRow + 1) * (idxCol + 1)"></app-pokemon>
+        </div>
+    </div>
+</div>
