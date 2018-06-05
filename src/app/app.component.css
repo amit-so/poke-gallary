@@ -1,17 +1,12 @@
-.jumbotron {
-    background-image: url("/assets/images/hero-background.jpg");
-    background-size: cover;
-    height: 450px;
-    width: 100%;
-    top: -30%;
-    left: 0px;
+.img-container {
+    position: relative;
+    text-align: center;
     color: white;
-    text-shadow: #444 0 1px 1px;
 }
 
-.header-container {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -2,5 +2,6 @@ export const environment = {
     production: true,
 
     pokemonServiceBaseUrl: 'some prod URL',
-    pokemonSearchLimit: 20
+    pokemonSearchLimit: 151,
+    pokemonsPerPage: 20
 };

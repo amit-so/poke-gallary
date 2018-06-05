@@ -1,7 +1,26 @@
 <div class="container-fluid pt-2">
-    <div class="row" *ngFor="let row of chunks; let idxRow = index">
-        <div class="col col-lg-3 col-sm-12 col-md-6 col-12 pb-2" *ngFor="let pokemon of row; let idxCol = index">
-            <app-pokemon [pokemon]="pokemon" [pokeNumber]="(idxRow + 1) * (idxCol + 1)"></app-pokemon>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Type to search for the Pokemon</span>
+        </div>
+        <input type="text" class="form-control" #textSearch (input)="searchPokemon(textSearch.value)">
+    </div>
+    <div class="row">
+        <div class="col col-lg-3 col-sm-12 col-md-6 col-12 pb-2" *ngFor="let pokemon of currentPagePokemons; let idxCol = index">
+            <app-pokemon [pokemon]="pokemon"></app-pokemon>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+                <ngb-pagination 
+                [pageSize]="noOfRecordsPerPage"
+                [collectionSize]="filtered.length" 
+                ([page])="curPage" 
+                ([size])="sm"
+                (pageChange)="changePage($event)"
+                [boundaryLinks]="false"></ngb-pagination>
+
+        </div>
+    </div>    
 </div>
+<app-spinner [showSpinner]="showSpinner"></app-spinner>

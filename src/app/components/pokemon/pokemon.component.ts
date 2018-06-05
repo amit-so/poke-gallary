@@ -9,16 +9,12 @@ import { Pokemon } from '../../model/pokemon';
 export class PokemonComponent implements OnInit {
 
     @Input() pokemon: Pokemon;
-    @Input() pokeNumber: number;
 
     constructor() { }
 
     ngOnInit() {
         if (null == this.pokemon) {
             throw new Error('Attribute pokemon is required');
-        }
-        if (null == this.pokeNumber) {
-            throw new Error('Attribute pokenumber is required');
         }
     }
 

@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 // RxJs
@@ -14,26 +15,66 @@ import { Pokemon } from '../../model/pokemon';
 })
 export class PokemonListComponent implements OnInit {
 
-    results: Pokemon[] = [];
-    chunks: any;
+    allPokemons: Pokemon[] = [];
+    filtered: Pokemon[] = [];
+    currentPagePokemons: Pokemon[] = [];
+
+    curPage: 1;
+    noOfRecordsPerPage: number = environment.pokemonsPerPage;
+
+    showSpinner = false;
 
     constructor(private pokemonService: PokemonService) { }
 
     ngOnInit() {
-        this.pokemonService.listPokemons(151)
+        this.showSpinner = true;
+        this.pokemonService.listPokemons(environment.pokemonSearchLimit)
+            .pipe(
+                map(response => {
+                    response.results.forEach((element, index) => {
+                        element.num = index + 1;
+                    });
+                    return response.results;
+                })
+            )
             .subscribe(response => {
-                this.results = response.results;
-                this.chunks = this.createChunks(this.results, 4);
+                this.allPokemons = response;
+                this.filtered = this.allPokemons.slice();
+                this.showSpinner = false;
+                this.createPage(1);
             });
     }
 
-    createChunks(array: Pokemon[], numberInEachChunk: number) {
-        let results = [];
-        results = [];
-        while (array.length) {
-            results.push(array.splice(0, numberInEachChunk));
+    changePage(pageNumber) {
+        if (pageNumber) {
+            this.createPage(pageNumber);
         }
-        return results;
     }
 
+    searchPokemon(searchString: string) {
+        if (searchString) {
+            this.filtered = this.allPokemons
+                .filter(item => {
+                    return (item.name.toLowerCase().includes(searchString.toLowerCase()));
+                });
+        } else {
+            this.filtered = this.allPokemons.slice();
+        }
+        this.createPage(1);
+    }
+
+    createPage(pageNumber: number): any {
+        if (this.filtered) {
+            console.log(pageNumber);
+            const start = (pageNumber - 1) * this.noOfRecordsPerPage;
+            const end = start + this.noOfRecordsPerPage;
+
+            console.log(start);
+            console.log(end);
+
+            this.currentPagePokemons = this.filtered.slice(start, end);
+        } else {
+            this.currentPagePokemons = [];
+        }
+    }
 }

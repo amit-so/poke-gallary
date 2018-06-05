@@ -6,7 +6,8 @@ export const environment = {
     production: false,
 
     pokemonServiceBaseUrl: 'https://pokeapi.co/api/v2/pokemon/',
-    pokemonSearchLimit: 20
+    pokemonSearchLimit: 151,
+    pokemonsPerPage: 20
 };
 
 /*
