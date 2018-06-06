@@ -5,22 +5,31 @@
         </div>
         <input type="text" class="form-control" #textSearch (input)="searchPokemon(textSearch.value)">
     </div>
+    <div class="pt-2">
+        <ngb-pagination
+        [pageSize]="noOfRecordsPerPage"
+        [collectionSize]="filtered.length" 
+        [page]="curPage" 
+        size="sm"
+        (pageChange)="changePage($event)"
+        [boundaryLinks]="false"></ngb-pagination>
+    </div>
+        
     <div class="row">
         <div class="col col-lg-3 col-sm-12 col-md-6 col-12 pb-2" *ngFor="let pokemon of currentPagePokemons; let idxCol = index">
             <app-pokemon [pokemon]="pokemon"></app-pokemon>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-                <ngb-pagination 
-                [pageSize]="noOfRecordsPerPage"
-                [collectionSize]="filtered.length" 
-                ([page])="curPage" 
-                ([size])="sm"
-                (pageChange)="changePage($event)"
-                [boundaryLinks]="false"></ngb-pagination>
-
-        </div>
-    </div>    
+    
+    <div class="pt-2">
+        <ngb-pagination
+        [pageSize]="noOfRecordsPerPage"
+        [collectionSize]="filtered.length" 
+        [page]="curPage" 
+        size="sm"
+        (pageChange)="changePage($event)"
+        [boundaryLinks]="false"></ngb-pagination>
+    </div>
+        
 </div>
 <app-spinner [showSpinner]="showSpinner"></app-spinner>

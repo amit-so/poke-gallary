@@ -19,7 +19,7 @@ export class PokemonListComponent implements OnInit {
     filtered: Pokemon[] = [];
     currentPagePokemons: Pokemon[] = [];
 
-    curPage: 1;
+    curPage: number;
     noOfRecordsPerPage: number = environment.pokemonsPerPage;
 
     showSpinner = false;
@@ -64,14 +64,10 @@ export class PokemonListComponent implements OnInit {
     }
 
     createPage(pageNumber: number): any {
+        this.curPage = pageNumber;
         if (this.filtered) {
-            console.log(pageNumber);
             const start = (pageNumber - 1) * this.noOfRecordsPerPage;
             const end = start + this.noOfRecordsPerPage;
-
-            console.log(start);
-            console.log(end);
-
             this.currentPagePokemons = this.filtered.slice(start, end);
         } else {
             this.currentPagePokemons = [];
